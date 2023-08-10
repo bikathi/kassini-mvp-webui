@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dicebear/collection": "^6.0.4",
+    "@dicebear/core": "^6.0.4",
     "@formkit/auto-animate": "^0.7.0",
     "@vueuse/core": "^10.3.0",
     "pinia": "^2.1.6",
