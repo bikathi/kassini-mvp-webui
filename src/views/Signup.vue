@@ -2,7 +2,10 @@
 	import { computed, reactive, ref } from 'vue';
 	import countiesAndConstituencies from '../data/county-info.js';
 	import { computedAsync } from '@vueuse/core';
+	import { ofetch } from 'ofetch';
+	import { useRouter } from 'vue-router';
 
+	const router = useRouter();
 	const signupInformation = reactive({
 		firstName: '',
 		lastName: '',
@@ -31,23 +34,27 @@
 	});
 	const roleSellerSelected = ref(false);
 	const signupLoading = ref(false);
+	const componentEmits = defineEmits(['displayNotification']);
 
 	const signup = async () => {
-		console.log(`Signup object: ${JSON.stringify(signupInformation)}`);
 		signupLoading.value = true;
-		setTimeout(() => {
-			signupLoading.value = false;
-		}, 4000);
+		await ofetch('http://localhost:9101/api/v1/auth/signup', {
+			method: 'POST',
+			body: JSON.stringify(signupInformation),
+		})
+			.then((response) => {
+				componentEmits('displayNotification', response.message);
+				router.push({ name: 'Login' });
+			})
+			.catch((err) =>
+				componentEmits('displayNotification', err.data.message),
+			);
+		signupLoading.value = false;
 	};
 </script>
 
 <template>
 	<main class="h-screen w-full flex">
-		<div class="w-[45%] hidden md:flex justify-center items-center">
-			<img
-				src="/signup-pic.svg"
-				alt="signup-pic" />
-		</div>
 		<div class="flex-grow flex flex-col justify-center items-center">
 			<h1>Account Creation</h1>
 			<h2>To Get Started, Create an Account</h2>
