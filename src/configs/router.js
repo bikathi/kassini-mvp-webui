@@ -23,9 +23,14 @@ const router = createRouter({
 			component: Dashboard,
 			children: [
 				{
-					path: '/dashboard/posts',
+					path: '', // default child route of dashboard
 					name: 'Posts',
 					component: () => import('../views/Post.vue'),
+				},
+				{
+					path: '/dashboard/subscriptions',
+					name: 'Subscriptions',
+					component: () => import('../views/Subscriptions.vue'),
 				},
 				{
 					path: '/dashboard/messages',
@@ -33,7 +38,7 @@ const router = createRouter({
 					component: () => import('../views/Messages.vue'),
 				},
 				{
-					path: '/dashboard/messages',
+					path: '/dashboard/accounting',
 					name: 'Accounting',
 					component: () => import('../views/Accounting.vue'),
 				},
@@ -42,14 +47,13 @@ const router = createRouter({
 					name: 'PostDetails',
 					component: () => import('../views/PostDetails.vue'),
 				},
+				{
+					path: '/dashboard/settings',
+					name: 'Settings',
+					component: Settings,
+				},
 			],
 		},
-		{
-			path: '/dashboard/settings',
-			name: 'Settings',
-			component: Settings,
-		},
-
 		// TODO: Delete this page later
 		{
 			path: '/testing',
