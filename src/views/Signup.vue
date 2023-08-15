@@ -9,7 +9,7 @@
 	const signupInformation = reactive({
 		firstName: '',
 		lastName: '',
-		bioName: '@',
+		bioName: '',
 		email: '',
 		password: '',
 		phoneNumber: '',
@@ -32,7 +32,7 @@
 			).constituencies;
 		}
 	});
-	const roleSellerSelected = ref(false);
+	const roleSelected = ref('');
 	const signupLoading = ref(false);
 	const componentEmits = defineEmits(['displayNotification']);
 
@@ -55,12 +55,15 @@
 
 <template>
 	<main class="h-screen w-full flex">
-		<div class="flex-grow flex flex-col justify-center items-center">
-			<h1>Account Creation</h1>
-			<h2>To Get Started, Create an Account</h2>
+		<div
+			class="flex-grow flex space-y-1 flex-col justify-center items-center">
+			<h1 class="font-inter text-3xl">Account Creation</h1>
+			<h2 class="font-inter text-xl">
+				To Get Started, Create an Account
+			</h2>
 			<form
 				@submit.prevent="signup"
-				class="flex flex-col space-y-3 w-full p-2 md:w-[65%]">
+				class="flex flex-col space-y-3 w-full p-2 md:w-[50%]">
 				<div class="flex space-x-3 w-full">
 					<input
 						type="text"
@@ -77,7 +80,7 @@
 				</div>
 				<input
 					type="text"
-					placeholder="Bio Name"
+					placeholder="Bio Name e.g @handsome-baboon"
 					v-model="signupInformation.bioName"
 					class="input-boxes"
 					required />
@@ -95,23 +98,25 @@
 					required />
 				<input
 					type="tel"
-					placeholder="Phone Number"
+					placeholder="Phone Number (format +2547....)"
 					class="input-boxes"
 					v-model="signupInformation.phoneNumber"
 					required />
 				<div class="flex space-x-3 w-full">
 					<select
 						class="select select-bordered w-1/2 input-boxes outline-none"
-						v-model="signupInformation.location.county">
+						v-model="signupInformation.location.county"
+						required>
 						<option
-							disabled
-							selected>
-							Choose Your County?
+							selected
+							value="select">
+							Choose Your County
 						</option>
 						<option
 							v-for="(county, index) in counties"
 							:key="index"
-							class="bg-red-500">
+							class="p-1 bg-base-100"
+							:value="county">
 							{{ county }}
 						</option>
 					</select>
@@ -137,40 +142,51 @@
 					<h1 class="w-full text-start">Signing Up As</h1>
 					<div class="flex justify-around">
 						<div
-							v-for="(img, index) in [
-								'/buyer-pic.svg',
-								'/seller-pic.svg',
+							v-for="(item, index) in [
+								{
+									img: '/buyer-pic.svg',
+									role: 'Buyer',
+								},
+								{
+									img: '/seller-pic.svg',
+									role: 'Vendor',
+								},
 							]"
 							:key="index"
-							class="rounded-xl m-1 p-2 cursor-pointer text-center"
+							class="rounded-xl m-1 p-2 cursor-pointer text-center border hover:-translate-y-1 hover:scale-100 transition ease-in-out delay-100"
 							:class="
-								roleSellerSelected && index === 1
-									? 'bg-red-500 border-primary-focus'
-									: 'border border-primary-focus'
+								roleSelected === item.role.toLowerCase()
+									? 'border-secondary'
+									: ''
 							"
 							@click="
 								() => {
-									addSellerRole = () => {
-										signupInformation.roles.push('seller');
-										roleSellerSelected = true;
-									};
+									if (index === 0) {
+										roleSelected = 'buyer';
 
-									removeSellerRole = () => {
-										signupInformation.roles.pop();
-										roleSellerSelected = false;
-									};
+										// removing the vendor role if it has already been pushed into the array
+										signupInformation.roles.length === 2
+											? signupInformation.roles.pop()
+											: null;
+									}
+
 									if (index === 1) {
+										roleSelected = 'vendor';
+
+										// inserting the vendor role into the signup array
 										signupInformation.roles.length === 1
-											? addSellerRole()
-											: removeSellerRole();
+											? signupInformation.roles.push(
+													'vendor',
+											  )
+											: null;
 									}
 								}
 							">
 							<img
-								:src="img"
+								:src="item.img"
 								alt="role-pic"
 								class="h-20 md:h-28" />
-							{{ index === 1 ? 'Seller' : 'Buyer' }}
+							{{ item.role }}
 						</div>
 					</div>
 				</div>
