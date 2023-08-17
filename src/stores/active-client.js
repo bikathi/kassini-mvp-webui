@@ -1,11 +1,11 @@
-import { reactive } from 'vue';
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 const useActiveClientStore = defineStore('activeClientStore', () => {
-	const clientDetails = reactive({});
+	const clientDetails = ref({});
 
 	function setClientDetails(logginDetails) {
-		clientDetails = logginDetails;
+		clientDetails.value = logginDetails;
 	}
 
 	function logoutClient() {
