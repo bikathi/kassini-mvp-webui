@@ -16,8 +16,10 @@
     "@vueuse/core": "^10.3.0",
     "ofetch": "^1.1.1",
     "pinia": "^2.1.6",
+    "sockjs-client": "^1.6.1",
     "vue": "^3.3.4",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
