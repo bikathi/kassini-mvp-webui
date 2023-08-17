@@ -27,9 +27,8 @@
 	});
 	const constituenciesToList = computedAsync(async () => {
 		if (signupInformation.location.county !== '') {
-			return countiesAndConstituencies.find(
-				(county) => county.name === signupInformation.location.county,
-			).constituencies;
+			return countiesAndConstituencies.find((county) => county.name === signupInformation.location.county)
+				.constituencies;
 		}
 	});
 	const roleSelected = ref('');
@@ -46,21 +45,16 @@
 				componentEmits('displayNotification', response.message);
 				router.push({ name: 'Login' });
 			})
-			.catch((err) =>
-				componentEmits('displayNotification', err.data.message),
-			);
+			.catch((err) => componentEmits('displayNotification', err.data.message));
 		signupLoading.value = false;
 	};
 </script>
 
 <template>
 	<main class="h-screen w-full flex">
-		<div
-			class="flex-grow flex space-y-1 flex-col justify-center items-center">
+		<div class="flex-grow flex space-y-1 flex-col justify-center items-center">
 			<h1 class="font-inter text-3xl">Account Creation</h1>
-			<h2 class="font-inter text-xl">
-				To Get Started, Create an Account
-			</h2>
+			<h2 class="font-inter text-xl">To Get Started, Create an Account</h2>
 			<form
 				@submit.prevent="signup"
 				class="flex flex-col space-y-3 w-full p-2 md:w-[50%]">
@@ -129,9 +123,7 @@
 							Choose Your Constituency?
 						</option>
 						<option
-							v-for="(
-								constituency, index
-							) in constituenciesToList"
+							v-for="(constituency, index) in constituenciesToList"
 							:key="index"
 							class="bg-red-500">
 							{{ constituency }}
@@ -154,20 +146,14 @@
 							]"
 							:key="index"
 							class="rounded-xl m-1 p-2 cursor-pointer text-center border hover:-translate-y-1 hover:scale-100 transition ease-in-out delay-100"
-							:class="
-								roleSelected === item.role.toLowerCase()
-									? 'border-secondary'
-									: ''
-							"
+							:class="roleSelected === item.role.toLowerCase() ? 'border-secondary' : ''"
 							@click="
 								() => {
 									if (index === 0) {
 										roleSelected = 'buyer';
 
 										// removing the vendor role if it has already been pushed into the array
-										signupInformation.roles.length === 2
-											? signupInformation.roles.pop()
-											: null;
+										signupInformation.roles.length === 2 ? signupInformation.roles.pop() : null;
 									}
 
 									if (index === 1) {
@@ -175,9 +161,7 @@
 
 										// inserting the vendor role into the signup array
 										signupInformation.roles.length === 1
-											? signupInformation.roles.push(
-													'vendor',
-											  )
+											? signupInformation.roles.push('vendor')
 											: null;
 									}
 								}

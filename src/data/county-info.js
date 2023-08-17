@@ -2,14 +2,7 @@ const countiesAndConstituencies = [
 	{
 		id: 1,
 		name: 'Mombasa',
-		constituencies: [
-			'Changamwe',
-			'Jomvu',
-			'Kisauni',
-			'Nyali',
-			'Likoni',
-			'Mvita',
-		],
+		constituencies: ['Changamwe', 'Jomvu', 'Kisauni', 'Nyali', 'Likoni', 'Mvita'],
 	},
 	{
 		id: 2,
@@ -19,15 +12,7 @@ const countiesAndConstituencies = [
 	{
 		id: 3,
 		name: 'Kilifi',
-		constituencies: [
-			'Kilifi North',
-			'Kilifi South',
-			'Kaloleni',
-			'Rabai',
-			'Ganze',
-			'Malindi',
-			'Magarini',
-		],
+		constituencies: ['Kilifi North', 'Kilifi South', 'Kaloleni', 'Rabai', 'Ganze', 'Malindi', 'Magarini'],
 	},
 	{
 		id: 4,

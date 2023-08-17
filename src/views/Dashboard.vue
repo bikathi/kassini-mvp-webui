@@ -47,14 +47,10 @@
 							tabindex="0"
 							class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-200/50">
 							<li>
-								<router-link :to="{ name: 'Login' }"
-									>Logout</router-link
-								>
+								<router-link :to="{ name: 'Login' }">Logout</router-link>
 							</li>
 							<li>
-								<router-link :to="{ name: 'Settings' }"
-									>Settings</router-link
-								>
+								<router-link :to="{ name: 'Settings' }">Settings</router-link>
 							</li>
 						</ul>
 					</div>
