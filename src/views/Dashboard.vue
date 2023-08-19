@@ -45,55 +45,51 @@
 
 <template>
 	<main class="h-screen flex justify-center">
-		<Suspense>
-			<div class="h-screen w-full lg:w-[55%] flex flex-col">
-				<div class="h-[12%]">
-					<div class="flex justify-between py-1">
-						<h1 class="text-3xl tracking-wide font-inter">
-							{{ activePageName }}
-						</h1>
-						<div class="dropdown dropdown-left">
-							<label
-								tabindex="0"
-								class="btn btn-circle">
-								<Icon
-									icon="system-uicons:menu-horizontal"
-									width="25" />
-							</label>
-							<ul
-								tabindex="0"
-								class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-200/50">
-								<li>
-									<router-link :to="{ name: 'Login' }">Logout</router-link>
-								</li>
-								<li>
-									<router-link :to="{ name: 'Settings' }">Settings</router-link>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="flex justify-around">
-						<router-link
-							v-for="(page, index) in computedAppPages"
-							:key="index"
-							:to="{ name: page.to }"
-							class="inline-flex flex-col items-center w-full"
-							:class="route.name === page.to ? 'border-b-2' : ''">
+		<ApplicationInit />
+		<div class="h-screen w-full lg:w-[55%] flex flex-col">
+			<div class="h-[12%]">
+				<div class="flex justify-between py-1">
+					<h1 class="text-3xl tracking-wide font-inter">
+						{{ activePageName }}
+					</h1>
+					<div class="dropdown dropdown-left">
+						<label
+							tabindex="0"
+							class="btn btn-circle">
 							<Icon
-								:icon="page.icon"
+								icon="system-uicons:menu-horizontal"
 								width="25" />
-							{{ page.text }}
-						</router-link>
+						</label>
+						<ul
+							tabindex="0"
+							class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-200/50">
+							<li>
+								<router-link :to="{ name: 'Login' }">Logout</router-link>
+							</li>
+							<li>
+								<router-link :to="{ name: 'Settings' }">Settings</router-link>
+							</li>
+						</ul>
 					</div>
 				</div>
-				<div class="flex-grow">
-					<!-- the dashboard views go here -->
-					<router-view></router-view>
+				<div class="flex justify-around">
+					<router-link
+						v-for="(page, index) in computedAppPages"
+						:key="index"
+						:to="{ name: page.to }"
+						class="inline-flex flex-col items-center w-full"
+						:class="route.name === page.to ? 'border-b-2' : ''">
+						<Icon
+							:icon="page.icon"
+							width="25" />
+						{{ page.text }}
+					</router-link>
 				</div>
 			</div>
-			<template #fallback>
-				<ApplicationInit />
-			</template>
-		</Suspense>
+			<div class="flex-grow">
+				<!-- the dashboard views go here -->
+				<router-view></router-view>
+			</div>
+		</div>
 	</main>
 </template>
