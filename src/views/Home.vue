@@ -37,4 +37,3 @@
 		Add item to list
 	</button>
 </template>
-Vue
