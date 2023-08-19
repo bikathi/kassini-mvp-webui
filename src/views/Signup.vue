@@ -174,11 +174,20 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex">
-					<AsyncActionButton
-						text="Create Account"
-						:loading="signupLoading"
-						buttonType="submit" />
+				<div class="flex w-full">
+					<button
+						class="btn w-full self-center"
+						type="submit"
+						:class="
+							signupLoading
+								? ['btn-circle transition-all duration-300 ease-in']
+								: ['rounded-full transition-all duration-300 ease-linear']
+						">
+						<span v-if="!signupLoading">Sign Up</span>
+						<span
+							v-else
+							class="loading loading-spinner loading-md"></span>
+					</button>
 				</div>
 			</form>
 		</div>

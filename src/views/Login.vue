@@ -52,7 +52,6 @@
 					v-model="signinInformation.password"
 					class="input-boxes"
 					required />
-				<!-- Figure out correct animation for this button -->
 				<button
 					class="btn w-full self-center"
 					type="submit"
