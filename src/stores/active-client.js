@@ -21,6 +21,7 @@ const useActiveClientStore = defineStore('activeClientStore', () => {
 	}
 
 	const clientRoles = computed(() => clientDetails.value.roles);
+	const userID = computed(() => clientDetails.value.userId);
 
 	return {
 		clientDetails,
@@ -28,6 +29,7 @@ const useActiveClientStore = defineStore('activeClientStore', () => {
 		logoutClient,
 		clientRoles,
 		setJWTInSessionStorage,
+		userID,
 	};
 });
 
