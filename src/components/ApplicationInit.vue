@@ -1,29 +1,36 @@
 <script setup>
 	import SockJS from 'sockjs-client/dist/sockjs';
 	import Stomp from 'webstomp-client';
-	import { provide, reactive } from 'vue';
+	import { ref, onMounted } from 'vue';
 	import useActiveClientStore from '../stores/active-client.js';
+	import { storeToRefs } from 'pinia';
 
-	const socket = reactive({});
-	const stompClient = reactive({});
+	const socket = ref({});
+	const stompClient = ref({});
 	const activeClientStore = useActiveClientStore();
 	const { setJWTInSessionStorage } = activeClientStore;
 	const { userID } = storeToRefs(activeClientStore);
 
 	async function setupWSConnection() {
-		socket = new SockJS('http://localhost:9101/ws-registry');
-		stompClient = Stomp.over(socket);
+		socket.value = new SockJS('http://localhost:9101/ws-registry');
+		stompClient.value = Stomp.over(socket);
 
-		stompClient.connect(
+		stompClient.value.connect(
+			{
+				Authorization: `Bearer ${sessionStorage.getItem('authToken')}`,
+			},
 			(frame) => {
-				console.log('Connect Frame: ' + frame);
-				stompClient.subscribe(`/user/queue/user-${userId}`, (message) => {
-					receivedMessages.value.push(JSON.parse(message.body));
+				stompClient.value.subscribe(`/queue/user-${userID.value}`, (message) => {
+					console.log(`Received message: ${message}`);
 				});
 			},
 			(error) => {
 				console.log(`An error occured: ${error}`);
-				stompClient.subscribe(`/queue/user-${userID}`, (message) => {
+				// wait a couple of seconds then retry the request recurssion
+				setTimeout(async () => {
+					await setupWSConnection();
+				}, 4000);
+				stompClient.value.subscribe(`/queue/user-${userID.value}`, (message) => {
 					console.log(`Received message from: ${message.body}`);
 					receivedMessages.value.push(JSON.parse(message.body));
 				});
@@ -31,13 +38,12 @@
 		);
 	}
 
-	// setup where the api token is going to be kept- session storage
-	await setJWTInSessionStorage().then(async () => {
-		// setup web-socket connection then 'provide' the socket for any child route to inject into itself
-		await setupWSConnection();
+	// TODO: Get this initialization out of the on-mounted lifecycle to take TRUE <Suspense> usage
+	onMounted(async () => {
+		// move JWT into session storage
+		await setJWTInSessionStorage().then(async () => {
+			// connect to websocket
+			await setupWSConnection();
+		});
 	});
 </script>
-
-<template>
-	
-</template>
