@@ -1,5 +1,7 @@
 <script setup></script>
 
 <template>
-	<h1>posts</h1>
+	<div class="flex-grow h-full flex flex-col items-center py-2 space-y-3">
+		<PostDisplay />
+	</div>
 </template>
