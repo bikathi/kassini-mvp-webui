@@ -46,8 +46,8 @@
 <template>
 	<main class="h-screen flex justify-center">
 		<ApplicationInit />
-		<div class="h-screen w-full lg:w-[55%] flex flex-col">
-			<div class="h-[12%]">
+		<div class="h-screen w-full lg:w-[50%] flex flex-col relative">
+			<div class="h-[12%] sticky bg-base-100 top-0 w-full">
 				<div class="flex justify-between py-1">
 					<h1 class="text-3xl tracking-wide font-inter">
 						{{ activePageName }}
