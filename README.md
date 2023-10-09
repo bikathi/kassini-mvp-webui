@@ -1,7 +1,19 @@
-# Vue 3 + Vite
+# Kassini-mvp Web UI
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Technologies and Metadata
+**Stack**: JVueJS, Javascript, Vite
 
-## Recommended IDE Setup
+**Database**: N/A
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+**Author**: Bikathi Martin([Github](https://github.com/bikathi))
+
+**Status**: Incomplete, Facing Little to No Contribs*
+
+## What is This?
+This was built as a POC(Proof of Concept) attempt at building a web interface for a social-media/ B2B/ B2C platform. However, **urgent matters** caused me to side
+the project a little bit.
+
+## Is it Abandoned?
+No so much. I will be updating it from time to time but don't count on that. Hey, it's Open Source so feel free to update the code with anything you want.
+
+## Find out more information about Kassini here: [What is Kassini + more](https://github.com/bikathi/kassini-mvp/blob/main/README.md)
